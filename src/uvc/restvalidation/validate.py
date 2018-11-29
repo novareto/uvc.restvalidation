@@ -15,6 +15,8 @@ class Extracted(dict):
         self.by_schema = collections.defaultdict(dict)
 
     def insert(self, field, value):
+        if field.interface is None:
+            raise TypeError('%r needs to be declared inside an interface.')
         name = field.__name__
         self[name] = value
         self.by_schema[field.interface][name] = value
